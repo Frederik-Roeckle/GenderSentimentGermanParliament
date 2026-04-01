@@ -208,5 +208,5 @@ __marimo__/
 
 
 # Data
-/data/testdata/*.csv
+/data/testdata/*.xml
 /data/*.csv
