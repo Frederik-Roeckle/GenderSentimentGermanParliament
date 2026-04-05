@@ -45,7 +45,7 @@ BT_14_008;Wenn er meint.;1
 BT_14_008;Gerne. Wenn sie der Wahrheitsfindung dient, immer.;1
 BT_14_008;Ja, mit Vergnügen.;1
 BT_14_008;Nein.;0
-BT_14_008;Aha! – Der Kollege Niebel ist mir noch nicht bekannt; deswegen habe ich jetzt in;1
+BT_14_008;Aha! – Der Kollege Niebel ist mir noch nicht bekannt deswegen habe ich jetzt in;1
 BT_14_008;Ja, immer, Herr Brunnhuber. Es ist immer witzig, wenn sich die Bayern und die Wü;1
 BT_14_008;Es ist mir eine Ehre, wie Sie sagen.;1
 BT_14_009;Gerne. Er ist mein Lieblingsfragesteller.;1
@@ -74,7 +74,7 @@ BT_16_075;Ich habe noch Zeit. Ja.;1
 BT_16_075;Ja.;1
 BT_16_227;Jetzt schon? – Gut, bitte.;1
 BT_16_227;Gut. – Bitte schön.;1
-BT_16_227;Selbstverständlich; ich freue mich.;1
+BT_16_227;Selbstverständlich, ich freue mich.;1
 BT_16_227;Immer.;1
 BT_16_227;Jetzt kann der Kollege seine Zwischenfrage stellen.;1
 BT_16_227;Ich glaube, jetzt ist es genug.;0
@@ -99,3 +99,39 @@ BT_19_163;Nein, das würde ich nicht erlauben.;0
 BT_19_163;Gerne. Das verlängert meine Redezeit.;1
 BT_19_163;Nein, ich erlaube keine Zwischenfrage.;0
 BT_19_163;Das wird uns alle sicherlich bereichern, insofern herzlich gerne.;1
+BT_19_012;Wir verschließen uns den Debatten nicht, und deswegen lasse ich sie zu.;1
+BT_19_012;Im Moment nicht, danke.;0
+BT_19_012;Nein, ich würde gerne zum Ende kommen.;0
+BT_19_012;Nein, ich bin ja schon fast fertig.;0
+BT_19_012;Nein, ich will erst einmal im Zusammenhang vortragen.;0
+BT_19_024;Ja, gern, warum nicht.;1
+BT_19_024;Ja, ist doch gut so.;1
+BT_19_024;Ich möchte gerne unser rechtspolitisches Programm im Zusammenhang ausführen.;0
+BT_19_042;Ich würde jetzt gern erst mal fortfahren, und dann kann er gerne danach noch etwas sagen.;0
+BT_19_042;Na, aber immer her damit!;1
+BT_19_042;Ich würde jetzt gern in die Schlussphase kommen.;0
+BT_19_042;Nein, danke.;0
+BT_19_042;Ich bin so gut wie am Ende.;0
+BT_19_042;Aber natürlich, jederzeit. Von wem? – Ach, von der CDU/CSU, alles klar. Aber ger;1
+BT_19_042;Vielleicht hinterher. Wäre das möglich?;0
+BT_19_042;Wirklich? Um diese Uhrzeit? – Komm, auf geht es. Bitte.;1
+BT_19_042;Nein. Ihr Antrag sagt alles. Da brauche ich keine Frage.;0
+BT_19_042;Ich glaube, in Anbetracht der Zeit schenken wir uns das für den Moment.;0
+BT_19_042;Ich würde jetzt gern erst mal fortfahren, und dann kann er gerne danach noch etwas sagen.;0
+BT_19_048;Nein. Ich will geschlossen vortragen.;0
+BT_19_048;Nein, danke. Ich möchte geschlossen vortragen.;0
+BT_19_048;Nein, jetzt gerade nicht.;0
+BT_19_048;Ja, ich habe es geahnt.;1
+BT_19_048;Ich möchte den Gedanken zu Ende führen, und dann können wir das gerne machen.;0
+BT_19_048;Nein, ich würde gerne fortfahren.;0
+BT_19_063;Nein, heute nicht.;0
+BT_19_072;Nein, ich bin eh gleich fertig. Ich bin quasi beim letzten Satz.;0
+BT_19_072;Im Moment nicht, danke. Tut mir leid!;0
+BT_19_102;Sehr gerne, Herr Kollege.;1
+BT_19_102;Bitte.;1
+BT_19_147;Nein, wir haben heute noch einen ganz langen Tag vor uns.;0
+BT_19_147;Ich halte meine Rede zu Ende, und wenn jemand danach eine Kurzintervention machen;0
+BT_19_159;Ich bin jetzt fast am Ende.;0
+BT_19_159;Danach.;0
+BT_19_159;Okay.;1
+BT_19_159;Nein, gestatte ich nicht.;0
