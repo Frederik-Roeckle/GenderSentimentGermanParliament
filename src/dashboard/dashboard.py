@@ -3,11 +3,22 @@ import pandas as pd
 import numpy as np
 
 
-df = pd.read_csv(r"./output_gender.csv")
+df_all = pd.read_csv(r"./output_gender.csv")
 
-st.title("Dashboard")
+st.title("Zwischen-Fragen")
 
-if st.button("next question", shortcut="N", type="primary"):
+
+protocols = list(df_all.source_file.unique())
+protocols = sorted(set([p[:5] for p in protocols]))
+print(protocols)
+selected_protocols = st.multiselect("Select protocols", protocols)
+df = df_all.loc[df_all.source_file.str[:5].isin(selected_protocols)]
+
+
+next = st.button("next question", shortcut="n", type="primary")
+next = True
+
+if next:
     st.markdown("***")
     accepted = False
     while not accepted:
@@ -20,4 +31,4 @@ if st.button("next question", shortcut="N", type="primary"):
     st.markdown("***")
     st.markdown(f"**{frage.current_gender.item()}** (Speaker)  <-  **{frage.interruptor_gender.item()}** (Interruptor)")
     st.markdown(f"**{frage.current_party.item()}** (Speaker)  <-  **{frage.interruptor_party.item()}** (Interruptor)")
-    
+    next = False
