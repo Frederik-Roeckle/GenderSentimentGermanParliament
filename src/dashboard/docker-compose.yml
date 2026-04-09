@@ -1,3 +1,4 @@
+version: '3.8'
 services:
   nlpdashboard:
     build:
@@ -7,3 +8,8 @@ services:
       - "8999:8051"
     networks:
         - public
+
+networks:
+  public:
+    name: public
+    external: true
