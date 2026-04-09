@@ -2,15 +2,14 @@ from __future__ import annotations
 
 import argparse
 import csv
+import joblib
 import json
 import re
 from pathlib import Path
 from typing import Any
+from tqdm import tqdm
 
 from bs4 import BeautifulSoup, Tag
-import torch
-import transformers
-
 
 REQUEST_PATTERN = re.compile(
     r"gestatten\s+sie.*(zwischenfrage|kurzintervention)|(zwischenfrage|kurzintervention).*(gestatten\s+sie)",
@@ -19,6 +18,9 @@ REQUEST_PATTERN = re.compile(
 
 ALLOW_PATTERN = re.compile(r"^(ja|gern|gerne|selbstverstaendlich|selbstverständlich|natuerlich|natürlich|aber sehr gern|bitte)", re.IGNORECASE)
 DECLINE_PATTERN = re.compile(r"^nein\b|zeit", re.IGNORECASE)
+
+# Load the TD-IDF model
+model = joblib.load("../model/zwischenfrage/german_tfidf_model.pkl")
 
 
 def normalize_text(text: str) -> str:
@@ -63,14 +65,12 @@ def is_allowed_answer(text: str) -> bool:
     return bool(ALLOW_PATTERN.search(lowered))
 
 
-def get_model():
-    return transformers.pipeline(
-        task="text-classification",
-        model="oliverguhr/german-sentiment-bert"
-    )
-
-def is_allowed_answer_nlp(text: str, model) -> bool:
-    lowered = normalize_text(text)
+def is_allowed_answer_td_idf(text: str) -> bool:
+    lowered = normalize_text(text)[0:80]
+    if not lowered:
+        return False
+    preds = model.predict([lowered,])
+    return True if preds[0] == 1 else False
 
 
 
@@ -115,8 +115,8 @@ def extract_zwischenfragen(xml_path: Path) -> list[dict[str, Any]]:
             continue
 
         answer_text = sp_text(answer_sp)
-        if not is_allowed_answer(answer_text):
-            continue
+        # permission_granted = is_allowed_answer(answer_text)
+        permission_granted = is_allowed_answer_td_idf(answer_text)
 
         # The interruptor is the next non-presidency speaker that is not the current speaker.
         interruptor_sp: Tag | None = None
@@ -138,11 +138,13 @@ def extract_zwischenfragen(xml_path: Path) -> list[dict[str, Any]]:
         if interruptor_sp is None:
             continue
 
-        question_text = normalize_text(
-            "\n".join(normalize_text(p.get_text(" ", strip=True)) for p in interruptor_sp.find_all("p"))
-        )
-        if not question_text:
-            continue
+        question_text = ""
+        if permission_granted:
+            question_text = normalize_text(
+                "\n".join(normalize_text(p.get_text(" ", strip=True)) for p in interruptor_sp.find_all("p"))
+            )
+            if not question_text:
+                continue
 
         results.append(
             {
@@ -151,6 +153,7 @@ def extract_zwischenfragen(xml_path: Path) -> list[dict[str, Any]]:
                 "zwischenfrage_text": question_text,
                 "permission_request": sp_text(request_sp),
                 "permission_answer": answer_text,
+                "permission_granted": permission_granted,
             }
         )
 
@@ -161,13 +164,14 @@ def collect_xml_files(input_path: Path) -> list[Path]:
     if input_path.is_file():
         return [input_path]
     if input_path.is_dir():
-        return sorted(p for p in input_path.glob("*.xml") if p.is_file())
+        return sorted(p for p in input_path.rglob("*.xml") if p.is_file())
     raise FileNotFoundError(f"Input path does not exist: {input_path}")
 
 
 def extract_zwischenfragen_from_path(input_path: Path) -> list[dict[str, Any]]:
     all_items: list[dict[str, Any]] = []
-    for xml_file in collect_xml_files(input_path):
+    xml_files = collect_xml_files(input_path)
+    for xml_file in tqdm(xml_files):
         file_items = extract_zwischenfragen(xml_file)
         for item in file_items:
             all_items.append({"source_file": xml_file.name, **item})
@@ -181,6 +185,7 @@ def flatten_for_csv(item: dict[str, Any]) -> dict[str, str]:
         "source_file": str(item.get("source_file") or ""),
         "permission_request": str(item.get("permission_request") or ""),
         "permission_answer": str(item.get("permission_answer") or ""),
+        "permission_granted": str(item.get("permission_granted") or ""),
         "zwischenfrage_text": str(item.get("zwischenfrage_text") or ""),
         "current_name": str(current.get("name") or ""),
         "current_who": str(current.get("who") or ""),
@@ -203,6 +208,7 @@ def write_csv(items: list[dict[str, Any]], output_path: Path) -> None:
         "source_file",
         "permission_request",
         "permission_answer",
+        "permission_granted",
         "zwischenfrage_text",
         "current_name",
         "current_who",
