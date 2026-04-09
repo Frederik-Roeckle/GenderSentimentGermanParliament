@@ -1,0 +1,9 @@
+services:
+  nlpdashboard:
+    build:
+      dockerfile: Dockerfile
+    container_name: nlpdashboard
+    ports:
+      - "8999:8051"
+    networks:
+        - public
