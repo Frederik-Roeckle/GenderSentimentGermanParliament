@@ -210,3 +210,7 @@ __marimo__/
 # Data
 /data/testdata/*.xml
 /data/*.csv
+
+# Models
+*.pkl
+/src/*.csv
