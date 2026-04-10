@@ -27,4 +27,4 @@ df["interruptor_gender"] = df.apply(map_gender_interruptor, axis=1)
 print(df.head())
 print(df.columns)
 
-df.to_csv(r"./output_gender.csv", index=False)
+df.to_csv(r"./output_gender.csv", index=True)
