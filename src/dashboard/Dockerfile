@@ -4,7 +4,7 @@ WORKDIR /app
 COPY requirements.txt /app/
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY ../output_gender.csv /app/
+COPY ../output_gender_masked.csv /app/
 COPY dashboard.py /app/
 
 EXPOSE 8501
