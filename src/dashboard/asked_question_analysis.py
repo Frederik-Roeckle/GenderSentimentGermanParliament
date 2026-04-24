@@ -45,7 +45,6 @@ else:
     text_col = "zwischenfrage_text_masked_combined" if masked else "zwischenfrage_text"
     st.markdown(f'**"** {row[text_col]} **"**')
 
-
     st.markdown("***")
 
     if masked:

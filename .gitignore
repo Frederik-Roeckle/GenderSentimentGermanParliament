@@ -211,6 +211,11 @@ __marimo__/
 /data/testdata/*.xml
 /data/*.csv
 
+/src/dashboard/*.csv
+
 # Models
 *.pkl
 /src/*.csv
+/src/dashboard/models/
+*.npy
+*.model
